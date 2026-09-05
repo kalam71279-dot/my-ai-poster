@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Assistant Pro - AI Video SEO & Growth Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f1117;
+            --bg-secondary: #181b24;
+            --bg-card: #202430;
+            --bg-input: #13161f;
+            --border-color: #2e3446;
+            --border-hover: #454d68;
+            --accent-primary: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --yt-red: #ff0000;
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --success: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --danger-bg: rgba(239, 68, 68, 0.12);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #f1f5f9;
+            --bg-input: #ffffff;
+            --border-color: #e2e8f0;
+            --border-hover: #cbd5e1;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 24px 16px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .studio-wrapper {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--accent-gradient);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .brand-text h1 {
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-text p {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+        }
+
+        .status-dot.healthy { background: var(--success); box-shadow: 0 0 8px var(--success); }
+        .status-dot.error { background: var(--danger); box-shadow: 0 0 8px var(--danger); }
+
+        .theme-toggle-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .theme-toggle-btn:hover {
+            border-color: var(--border-hover);
+        }
+
+        /* Main Grid */
+        .workspace-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        /* Upload & Customization Card */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 28px;
+            box-shadow: var(--shadow);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-header p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Drag Drop Zone */
+        .upload-dropzone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-input);
+            padding: 36px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .upload-dropzone:hover, .upload-dropzone.dragover {
+            border-color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateY(-1px);
+        }
+
+        .upload-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .upload-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .upload-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .format-pills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .format-pill {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 3px 8px;
+            border-radius: 6px;
+        }
+
+        #videoFileInput {
+            display: none;
+        }
+
+        /* Selected Video Preview Container */
+        .selected-video-card {
+            display: none;
+            margin-top: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            gap: 16px;
+        }
+
+        .selected-video-card.show {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 640px) {
+            .selected-video-card.show {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .video-preview-player {
+            width: 100%;
+            max-width: 280px;
+            border-radius: var(--radius-sm);
+            background: #000;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+        }
+
+        .video-meta-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .video-name {
+            font-weight: 700;
+            font-size: 15px;
+            word-break: break-all;
+        }
+
+        .video-stats {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+        }
+
+        .change-file-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: fit-content;
+            margin-top: 6px;
+        }
+
+        .change-file-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        /* Strategy Customization Form */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+        }
+
+        .form-control {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Main Launch Button */
+        .generate-btn {
+            width: 100%;
+            margin-top: 24px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .generate-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(99, 102, 241, 0.45);
+        }
+
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Multi-Step Progress Container */
+        .progress-box {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .progress-box.show {
+            display: block;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .step-item {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0.5;
+            transition: all 0.3s ease;
+        }
+
+        .step-item.active {
+            opacity: 1;
+            border-color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .step-item.completed {
+            opacity: 1;
+            border-color: var(--success);
+            background: var(--success-bg);
+        }
+
+        .step-indicator {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .step-item.active .step-indicator {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        .step-item.completed .step-indicator {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-text {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Error Notification */
+        .error-banner {
+            display: none;
+            background: var(--danger-bg);
+            border: 1px solid var(--danger);
+            color: #fca5a5;
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .error-banner.show {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            gap: 20px;
+            flex-direction: column;
+        }
+
+        .results-section.show {
+            display: flex;
+        }
+
+        /* Tabs Nav */
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--border-hover);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Tab Content */
+        .tab-panel {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tab-panel.active {
+            display: flex;
+        }
+
+        /* Title Cards */
+        .title-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            position: relative;
+        }
+
+        .title-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .title-text {
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .title-scores {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .score-pill {
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .score-ctr {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .score-search {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .style-pill {
+            background: var(--bg-input);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .title-rationale {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Copy Buttons */
+        .copy-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            color: white;
+        }
+
+        .copy-btn.copied {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        /* Description Box */
+        .content-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+        }
+
+        .formatted-textarea {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            resize: vertical;
+            min-height: 240px;
+            outline: none;
+        }
+
+        /* Timestamps list */
+        .timestamp-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .timestamp-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-input);
+            padding: 8px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+
+        .timestamp-item:hover {
+            border-color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        .timestamp-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-size: 13px;
+        }
+
+        /* Tags Container */
+        .tags-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .tag-badge {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tag-badge:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        /* Thumbnail Concepts */
+        .thumbnail-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .thumbnail-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            background: var(--bg-input);
+            padding: 14px;
+            border-radius: var(--radius-sm);
+        }
+
+        .thumbnail-detail-item {
+            font-size: 13px;
+        }
+
+        .thumbnail-detail-item strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .ai-prompt-box {
+            background: var(--bg-input);
+            border-left: 3px solid var(--accent-primary);
+            padding: 12px 16px;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-size: 13px;
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        /* Floating Toast */
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--accent-gradient);
+            color: white;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toast-notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="studio-wrapper">
+        <!-- Top Navigation / Header -->
+        <header class="header-bar">
+            <div class="brand">
+                <div class="brand-icon">🎬</div>
+                <div class="brand-text">
+                    <h1>YouTube Assistant Pro</h1>
+                    <p>Next-Gen Video SEO & Metadata Growth Studio</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-badge" id="apiStatusBadge">
+                    <span class="status-dot" id="apiStatusDot"></span>
+                    <span id="apiStatusText">Checking API...</span>
+                </div>
+                <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">🌙</button>
+            </div>
+        </header>
+
+        <!-- Main Studio Area -->
+        <div class="workspace-grid">
+            <!-- Upload & Setup Card -->
+            <section class="card">
+                <div class="card-header">
+                    <h2>📤 1. Upload Video & Customize Strategy</h2>
+                    <p>Select your video file and configure your AI growth settings for maximum algorithmic reach.</p>
+                </div>
+
+                <!-- Dropzone -->
+                <div class="upload-dropzone" id="uploadDropzone">
+                    <div class="upload-icon">📹</div>
+                    <div class="upload-title">Drag & drop your video here</div>
+                    <div class="upload-subtitle">or click to browse files from your computer</div>
+                    <div class="format-pills">
+                        <span class="format-pill">MP4</span>
+                        <span class="format-pill">MOV</span>
+                        <span class="format-pill">AVI</span>
+                        <span class="format-pill">MKV</span>
+                        <span class="format-pill">WEBM</span>
+                        <span class="format-pill">Up to 500MB</span>
+                    </div>
+                </div>
+                <input type="file" id="videoFileInput" accept="video/mp4,video/avi,video/quicktime,video/x-matroska,video/webm">
+
+                <!-- Video Preview & Metadata -->
+                <div class="selected-video-card" id="selectedVideoCard">
+                    <video id="localVideoPlayer" class="video-preview-player" controls preload="metadata"></video>
+                    <div class="video-meta-info">
+                        <div class="video-name" id="selectedFileName">video.mp4</div>
+                        <div class="video-stats">
+                            <span id="selectedFileSize">0 MB</span>
+                            <span>•</span>
+                            <span id="selectedVideoDuration">00:00</span>
+                        </div>
+                        <button class="change-file-btn" id="changeFileBtn">🔄 Choose Different Video</button>
+                    </div>
+                </div>
+
+                <!-- AI Customization Controls -->
+                <div class="strategy-grid">
+                    <div class="form-group">
+                        <label for="strategyLanguage">Output Language</label>
+                        <select id="strategyLanguage" class="form-control">
+                            <option value="English" selected>English (Global)</option>
+                            <option value="Bengali">Bengali (বাংলা)</option>
+                            <option value="Hindi">Hindi (हिंदी)</option>
+                            <option value="Spanish">Spanish (Español)</option>
+                            <option value="French">French (Français)</option>
+                            <option value="German">German (Deutsch)</option>
+                            <option value="Arabic">Arabic (العربية)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strategyStyle">Style & Tone</label>
+                        <select id="strategyStyle" class="form-control">
+                            <option value="Engaging & Viral" selected>🔥 Viral & High CTR</option>
+                            <option value="Educational & Deep Dive">📚 Educational & Deep Dive</option>
+                            <option value="Entertaining & Storytelling">🎭 Entertaining & Storytelling</option>
+                            <option value="Tech Review & Breakdown">⚡ Tech Review & Breakdown</option>
+                            <option value="Professional & Business">💼 Professional & Corporate</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strategyCategory">Category</label>
+                        <select id="strategyCategory" class="form-control">
+                            <option value="Tech & Coding" selected>Tech & Software</option>
+                            <option value="Education & Tutorials">Education & How-To</option>
+                            <option value="Gaming">Gaming</option>
+                            <option value="Entertainment & Comedy">Entertainment</option>
+                            <option value="Finance & Crypto">Finance & Business</option>
+                            <option value="Vlog & Lifestyle">Vlogs & Lifestyle</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="strategyKeyword">Focus Target Keyword (Optional)</label>
+                        <input type="text" id="strategyKeyword" class="form-control" placeholder="e.g. Gemini 3.6 Flash Tutorial">
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="generate-btn" id="generateBtn" disabled>
+                    <span>🚀 Generate AI Growth Package</span>
+                </button>
+
+                <!-- Step Progress -->
+                <div class="progress-box" id="progressBox">
+                    <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 8px;">⏳ Processing Video with Gemini Multi-Modal AI...</h3>
+                    <p style="font-size: 13px; color: var(--text-secondary);" id="progressSubtext">Uploading video frames to Gemini AI...</p>
+                    
+                    <div class="steps-container">
+                        <div class="step-item active" id="step1">
+                            <div class="step-indicator">1</div>
+                            <div class="step-text">Uploading Video</div>
+                        </div>
+                        <div class="step-item" id="step2">
+                            <div class="step-indicator">2</div>
+                            <div class="step-text">Gemini Analysis</div>
+                        </div>
+                        <div class="step-item" id="step3">
+                            <div class="step-indicator">3</div>
+                            <div class="step-text">SEO Generation</div>
+                        </div>
+                        <div class="step-item" id="step4">
+                            <div class="step-indicator">4</div>
+                            <div class="step-text">Ready!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Error Display -->
+                <div class="error-banner" id="errorBanner">
+                    <span style="font-size: 20px;">⚠️</span>
+                    <div id="errorMessageText">An error occurred during processing.</div>
+                </div>
+            </section>
+
+            <!-- Results Section (Tabs) -->
+            <section class="card results-section" id="resultsSection">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                    <div>
+                        <h2>✨ 2. Your AI YouTube Growth Package</h2>
+                        <p>Optimized for algorithmic recommendation, maximum CTR, and viewer retention.</p>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="copy-btn" id="copyAllPackageBtn">📋 Copy Everything</button>
+                        <button class="copy-btn" id="downloadTxtBtn">💾 Download .TXT</button>
+                        <button class="copy-btn" id="downloadJsonBtn">💾 Download .JSON</button>
+                    </div>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tab-nav">
+                    <button class="tab-btn active" data-tab="tab-overview">📊 Summary & Strategy</button>
+                    <button class="tab-btn" data-tab="tab-titles">🎯 High CTR Titles</button>
+                    <button class="tab-btn" data-tab="tab-desc">📝 Description & Chapters</button>
+                    <button class="tab-btn" data-tab="tab-tags">🏷️ Tags & Hashtags</button>
+                    <button class="tab-btn" data-tab="tab-thumbnails">🎨 Thumbnail Studio</button>
+                    <button class="tab-btn" data-tab="tab-shorts">📱 Shorts & Social Hooks</button>
+                </div>
+
+                <!-- Tab: Overview -->
+                <div class="tab-panel active" id="tab-overview">
+                    <div class="content-box">
+                        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">💡 Executive Video Summary</h3>
+                        <p id="overviewSummaryText" style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);"></p>
+                    </div>
+                    <div class="content-box">
+                        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">💬 Pinned Comment Engagement Hook</h3>
+                        <p id="overviewCommentText" style="font-size: 14px; line-height: 1.6; color: var(--text-primary); font-weight: 600;"></p>
+                        <button class="copy-btn" style="margin-top: 10px;" onclick="copySpecificText(document.getElementById('overviewCommentText').textContent, 'Comment prompt copied!')">📋 Copy Pinned Question</button>
+                    </div>
+                </div>
+
+                <!-- Tab: Titles -->
+                <div class="tab-panel" id="tab-titles">
+                    <div id="titlesContainer" style="display: flex; flex-direction: column; gap: 16px;"></div>
+                </div>
+
+                <!-- Tab: Description & Timestamps -->
+                <div class="tab-panel" id="tab-desc">
+                    <div class="content-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 style="font-size: 15px; font-weight: 700;">📄 Complete Video Description</h3>
+                            <button class="copy-btn" id="copyDescBtn">📋 Copy Description</button>
+                        </div>
+                        <textarea id="fullDescTextarea" class="formatted-textarea" spellcheck="false"></textarea>
+                    </div>
+
+                    <div class="content-box" id="timestampsBox">
+                        <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 10px;">⏱️ Interactive Chapters & Timestamps</h3>
+                        <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 12px;">Click on any chapter timestamp to seek the video player.</p>
+                        <div class="timestamp-list" id="timestampsContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Tab: Tags & Hashtags -->
+                <div class="tab-panel" id="tab-tags">
+                    <div class="content-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 style="font-size: 15px; font-weight: 700;">🏷️ Video Tags (YouTube Tag Box Format)</h3>
+                            <button class="copy-btn" id="copyTagsStringBtn">📋 Copy Comma-Separated Tags</button>
+                        </div>
+                        <div class="tags-flex" id="tagsPillsContainer"></div>
+                    </div>
+
+                    <div class="content-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                            <h3 style="font-size: 15px; font-weight: 700;">#️⃣ Hashtags</h3>
+                            <button class="copy-btn" id="copyHashtagsBtn">📋 Copy Hashtags</button>
+                        </div>
+                        <div class="tags-flex" id="hashtagsPillsContainer"></div>
+                    </div>
+                </div>
+
+                <!-- Tab: Thumbnail Studio -->
+                <div class="tab-panel" id="tab-thumbnails">
+                    <div id="thumbnailsContainer" style="display: flex; flex-direction: column; gap: 16px;"></div>
+                </div>
+
+                <!-- Tab: Shorts & Social -->
+                <div class="tab-panel" id="tab-shorts">
+                    <div class="content-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="font-size: 15px; font-weight: 700;">⚡ 5-Second Viral Hook for Shorts & Reels</h3>
+                            <button class="copy-btn" onclick="copySpecificText(document.getElementById('shortsHookText').textContent, 'Shorts hook copied!')">📋 Copy</button>
+                        </div>
+                        <p id="shortsHookText" style="font-size: 14px; line-height: 1.6; color: var(--text-primary);"></p>
+                    </div>
+
+                    <div class="content-box">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h3 style="font-size: 15px; font-weight: 700;">🐦 Twitter / X Promotion Post</h3>
+                            <button class="copy-btn" onclick="copySpecificText(document.getElementById('twitterPostText').textContent, 'Twitter post copied!')">📋 Copy</button>
+                        </div>
+                        <p id="twitterPostText" style="font-size: 14px; line-height: 1.6; color: var(--text-primary); white-space: pre-wrap;"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div class="toast-notification" id="toast">
+        <span>✓</span>
+        <span id="toastMessage">Copied to clipboard!</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const apiStatusDot = document.getElementById('apiStatusDot');
+        const apiStatusText = document.getElementById('apiStatusText');
+        const uploadDropzone = document.getElementById('uploadDropzone');
+        const videoFileInput = document.getElementById('videoFileInput');
+        const selectedVideoCard = document.getElementById('selectedVideoCard');
+        const localVideoPlayer = document.getElementById('localVideoPlayer');
+        const selectedFileName = document.getElementById('selectedFileName');
+        const selectedFileSize = document.getElementById('selectedFileSize');
+        const selectedVideoDuration = document.getElementById('selectedVideoDuration');
+        const changeFileBtn = document.getElementById('changeFileBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const progressBox = document.getElementById('progressBox');
+        const progressSubtext = document.getElementById('progressSubtext');
+        const errorBanner = document.getElementById('errorBanner');
+        const errorMessageText = document.getElementById('errorMessageText');
+        const resultsSection = document.getElementById('resultsSection');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+
+        let currentSelectedFile = null;
+        let generatedPackageData = null;
+
+        // --- Theme Switcher ---
+        const savedTheme = localStorage.getItem('yt_assistant_theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        themeToggleBtn.textContent = savedTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeToggleBtn.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+            localStorage.setItem('yt_assistant_theme', newTheme);
+        });
+
+        // --- API Health Check ---
+        async function checkApiHealth() {
+            try {
+                const res = await fetch('/api/health');
+                const data = await res.json();
+                if (data.api_configured) {
+                    apiStatusDot.className = 'status-dot healthy';
+                    apiStatusText.textContent = `Gemini AI Connected (${data.model})`;
+                } else {
+                    apiStatusDot.className = 'status-dot error';
+                    apiStatusText.textContent = 'API Key Missing in .env';
+                }
+            } catch (e) {
+                apiStatusDot.className = 'status-dot error';
+                apiStatusText.textContent = 'Server Offline';
+            }
+        }
+        checkApiHealth();
+
+        // --- File Upload & Preview Handlers ---
+        uploadDropzone.addEventListener('click', () => videoFileInput.click());
+        changeFileBtn.addEventListener('click', () => videoFileInput.click());
+
+        uploadDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.add('dragover');
+        });
+
+        uploadDropzone.addEventListener('dragleave', () => {
+            uploadDropzone.classList.remove('dragover');
+        });
+
+        uploadDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadDropzone.classList.remove('dragover');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFileSelection(e.dataTransfer.files[0]);
+            }
+        });
+
+        videoFileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                handleFileSelection(e.target.files[0]);
+            }
+        });
+
+        function handleFileSelection(file) {
+            currentSelectedFile = file;
+            selectedFileName.textContent = file.name;
+            selectedFileSize.textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
+            
+            // Set up video preview player
+            const fileUrl = URL.createObjectURL(file);
+            localVideoPlayer.src = fileUrl;
+            localVideoPlayer.onloadedmetadata = () => {
+                const mins = Math.floor(localVideoPlayer.duration / 60);
+                const secs = Math.floor(localVideoPlayer.duration % 60);
+                selectedVideoDuration.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            };
+
+            uploadDropzone.style.display = 'none';
+            selectedVideoCard.classList.add('show');
+            generateBtn.disabled = false;
+            hideError();
+        }
+
+        // --- Tab Navigation Handlers ---
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+                btn.classList.add('active');
+                const targetId = btn.getAttribute('data-tab');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // --- Processing & API Call ---
+        generateBtn.addEventListener('click', async () => {
+            if (!currentSelectedFile) return;
+
+            hideError();
+            resultsSection.classList.remove('show');
+            progressBox.classList.add('show');
+            generateBtn.disabled = true;
+
+            updateStep(1, 'active');
+            progressSubtext.textContent = 'Uploading video file to backend server...';
+
+            const formData = new FormData();
+            formData.append('video', currentSelectedFile);
+            formData.append('language', document.getElementById('strategyLanguage').value);
+            formData.append('style', document.getElementById('strategyStyle').value);
+            formData.append('category', document.getElementById('strategyCategory').value);
+            formData.append('focus_keyword', document.getElementById('strategyKeyword').value);
+
+            // Step progression timer simulation for smooth UI
+            const step2Timer = setTimeout(() => {
+                updateStep(1, 'completed');
+                updateStep(2, 'active');
+                progressSubtext.textContent = 'Gemini Files API analyzing video audio, visuals & pacing...';
+            }, 3000);
+
+            const step3Timer = setTimeout(() => {
+                updateStep(2, 'completed');
+                updateStep(3, 'active');
+                progressSubtext.textContent = 'Generating high-converting SEO titles, chapters & tags...';
+            }, 12000);
+
+            try {
+                const response = await fetch('/api/process-video', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                clearTimeout(step2Timer);
+                clearTimeout(step3Timer);
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+                    throw new Error(data.error || 'Failed to process video.');
+                }
+
+                updateStep(1, 'completed');
+                updateStep(2, 'completed');
+                updateStep(3, 'completed');
+                updateStep(4, 'completed');
+                progressSubtext.textContent = 'Done! Your growth package is ready.';
+
+                generatedPackageData = data.metadata;
+                renderResults(data.metadata);
+
+                setTimeout(() => {
+                    progressBox.classList.remove('show');
+                    resultsSection.classList.add('show');
+                    resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    generateBtn.disabled = false;
+                }, 1000);
+
+            } catch (err) {
+                clearTimeout(step2Timer);
+                clearTimeout(step3Timer);
+                progressBox.classList.remove('show');
+                generateBtn.disabled = false;
+                showError(err.message);
+            }
+        });
+
+        function updateStep(stepNum, status) {
+            const el = document.getElementById(`step${stepNum}`);
+            if (status === 'active') {
+                el.className = 'step-item active';
+            } else if (status === 'completed') {
+                el.className = 'step-item completed';
+            } else {
+                el.className = 'step-item';
+            }
+        }
+
+        function showError(msg) {
+            errorMessageText.textContent = msg;
+            errorBanner.classList.add('show');
+        }
+
+        function hideError() {
+            errorBanner.classList.remove('show');
+        }
+
+        // --- Render Results ---
+        function renderResults(pkg) {
+            // 1. Overview
+            document.getElementById('overviewSummaryText').textContent = pkg.video_summary || 'N/A';
+            document.getElementById('overviewCommentText').textContent = pkg.audience_strategy?.engagement_question || 'What was your favorite takeaway from this video? Let me know below!';
+
+            // 2. Titles
+            const titlesContainer = document.getElementById('titlesContainer');
+            titlesContainer.innerHTML = '';
+            (pkg.titles || []).forEach((t, idx) => {
+                const card = document.createElement('div');
+                card.className = 'title-card';
+                card.innerHTML = `
+                    <div class="title-header">
+                        <div class="title-text">${escapeHtml(t.title)}</div>
+                        <button class="copy-btn" onclick="copySpecificText('${escapeHtml(t.title).replace(/'/g, "\\'")}', 'Title copied!')">📋 Copy</button>
+                    </div>
+                    <div class="title-scores">
+                        <span class="score-pill score-ctr">🎯 CTR Score: ${t.ctr_score || 95}/100</span>
+                        <span class="score-pill score-search">🔍 SEO Score: ${t.search_score || 90}/100</span>
+                        <span class="style-pill">${escapeHtml(t.style || 'Optimized')}</span>
+                    </div>
+                    ${t.rationale ? `<div class="title-rationale">💡 ${escapeHtml(t.rationale)}</div>` : ''}
+                `;
+                titlesContainer.appendChild(card);
+            });
+
+            // 3. Description & Timestamps
+            const fullDesc = pkg.description?.full_formatted_description || pkg.raw_text || '';
+            document.getElementById('fullDescTextarea').value = fullDesc;
+
+            const timestampsContainer = document.getElementById('timestampsContainer');
+            timestampsContainer.innerHTML = '';
+            const timestampsList = pkg.timestamps || [];
+            if (timestampsList.length > 0) {
+                document.getElementById('timestampsBox').style.display = 'block';
+                timestampsList.forEach(ts => {
+                    const item = document.createElement('div');
+                    item.className = 'timestamp-item';
+                    item.innerHTML = `
+                        <span class="timestamp-code">▶ ${escapeHtml(ts.time)}</span>
+                        <span>${escapeHtml(ts.label || ts.title || '')}</span>
+                    `;
+                    item.addEventListener('click', () => {
+                        seekVideoToTime(ts.time);
+                    });
+                    timestampsContainer.appendChild(item);
+                });
+            } else {
+                document.getElementById('timestampsBox').style.display = 'none';
+            }
+
+            // 4. Tags & Hashtags
+            const tagsContainer = document.getElementById('tagsPillsContainer');
+            tagsContainer.innerHTML = '';
+            (pkg.tags || []).forEach(tag => {
+                const pill = document.createElement('span');
+                pill.className = 'tag-badge';
+                pill.textContent = tag;
+                pill.title = 'Click to copy tag';
+                pill.onclick = () => copySpecificText(tag, `Tag "${tag}" copied!`);
+                tagsContainer.appendChild(pill);
+            });
+
+            const hashtagsContainer = document.getElementById('hashtagsPillsContainer');
+            hashtagsContainer.innerHTML = '';
+            (pkg.hashtags || []).forEach(tag => {
+                const pill = document.createElement('span');
+                pill.className = 'tag-badge';
+                pill.textContent = tag;
+                pill.title = 'Click to copy hashtag';
+                pill.onclick = () => copySpecificText(tag, `Hashtag "${tag}" copied!`);
+                hashtagsContainer.appendChild(pill);
+            });
+
+            // 5. Thumbnails
+            const thumbnailsContainer = document.getElementById('thumbnailsContainer');
+            thumbnailsContainer.innerHTML = '';
+            (pkg.thumbnail_concepts || []).forEach((tc, idx) => {
+                const card = document.createElement('div');
+                card.className = 'thumbnail-card';
+                card.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4 style="font-size: 15px; font-weight: 700;">🖼️ Concept #${idx + 1}: ${escapeHtml(tc.concept_title || 'Visual Idea')}</h4>
+                        <button class="copy-btn" onclick="copySpecificText('${escapeHtml(tc.ai_image_prompt || '').replace(/'/g, "\\'")}', 'AI Image Prompt copied!')">📋 Copy AI Prompt</button>
+                    </div>
+                    <div class="thumbnail-details">
+                        <div class="thumbnail-detail-item">
+                            <strong>Visual Composition</strong>
+                            <span>${escapeHtml(tc.visual_scene || 'N/A')}</span>
+                        </div>
+                        <div class="thumbnail-detail-item">
+                            <strong>Text Overlay</strong>
+                            <span style="font-weight: 700; color: var(--accent-primary);">${escapeHtml(tc.text_overlay || 'N/A')}</span>
+                        </div>
+                        <div class="thumbnail-detail-item">
+                            <strong>Color Contrast</strong>
+                            <span>${escapeHtml(tc.color_scheme || 'N/A')}</span>
+                        </div>
+                    </div>
+                    <div class="ai-prompt-box">
+                        <strong>🎨 AI Image Generator Prompt:</strong><br>
+                        ${escapeHtml(tc.ai_image_prompt || 'N/A')}
+                    </div>
+                `;
+                thumbnailsContainer.appendChild(card);
+            });
+
+            // 6. Shorts & Social
+            document.getElementById('shortsHookText').textContent = pkg.social_snippets?.shorts_reels_hook || 'N/A';
+            document.getElementById('twitterPostText').textContent = pkg.social_snippets?.twitter_x_post || 'N/A';
+        }
+
+        // --- Video Timestamp Seek Helper ---
+        function seekVideoToTime(timeStr) {
+            if (!localVideoPlayer) return;
+            const parts = timeStr.split(':').map(Number);
+            let seconds = 0;
+            if (parts.length === 2) {
+                seconds = parts[0] * 60 + parts[1];
+            } else if (parts.length === 3) {
+                seconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+            }
+            localVideoPlayer.currentTime = seconds;
+            localVideoPlayer.play();
+            showToast(`Seeking video to ${timeStr}`);
+        }
+
+        // --- Copy & Export Actions ---
+        function showToast(msg) {
+            toastMessage.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function copySpecificText(text, successMsg = 'Copied to clipboard!') {
+            navigator.clipboard.writeText(text).then(() => showToast(successMsg)).catch(() => alert('Copy failed.'));
+        }
+
+        document.getElementById('copyDescBtn').addEventListener('click', () => {
+            const desc = document.getElementById('fullDescTextarea').value;
+            copySpecificText(desc, 'Description copied!');
+        });
+
+        document.getElementById('copyTagsStringBtn').addEventListener('click', () => {
+            const tagsStr = generatedPackageData?.tags_string || (generatedPackageData?.tags || []).join(', ');
+            copySpecificText(tagsStr, 'Tags copied for YouTube Studio!');
+        });
+
+        document.getElementById('copyHashtagsBtn').addEventListener('click', () => {
+            const hashtagsStr = (generatedPackageData?.hashtags || []).join(' ');
+            copySpecificText(hashtagsStr, 'Hashtags copied!');
+        });
+
+        document.getElementById('copyAllPackageBtn').addEventListener('click', () => {
+            if (!generatedPackageData) return;
+            const formatted = buildExportText(generatedPackageData);
+            copySpecificText(formatted, 'Complete YouTube package copied!');
+        });
+
+        document.getElementById('downloadTxtBtn').addEventListener('click', () => {
+            if (!generatedPackageData) return;
+            const text = buildExportText(generatedPackageData);
+            downloadFile(text, 'youtube_metadata_package.txt', 'text/plain');
+        });
+
+        document.getElementById('downloadJsonBtn').addEventListener('click', () => {
+            if (!generatedPackageData) return;
+            const jsonStr = JSON.stringify(generatedPackageData, null, 2);
+            downloadFile(jsonStr, 'youtube_metadata_package.json', 'application/json');
+        });
+
+        function buildExportText(pkg) {
+            let out = `====================================================\n`;
+            out += `🎬 YOUTUBE METADATA GROWTH PACKAGE\n`;
+            out += `====================================================\n\n`;
+            
+            out += `📌 SUMMARY:\n${pkg.video_summary || ''}\n\n`;
+            
+            out += `🎯 TITLES:\n`;
+            (pkg.titles || []).forEach((t, i) => {
+                out += `${i + 1}. ${t.title} [CTR: ${t.ctr_score}/100, SEO: ${t.search_score}/100]\n`;
+            });
+            out += `\n`;
+
+            out += `📝 DESCRIPTION:\n${pkg.description?.full_formatted_description || pkg.raw_text || ''}\n\n`;
+
+            out += `🏷️ TAGS:\n${pkg.tags_string || (pkg.tags || []).join(', ')}\n\n`;
+
+            out += `#️⃣ HASHTAGS:\n${(pkg.hashtags || []).join(' ')}\n\n`;
+
+            out += `🎨 THUMBNAIL CONCEPTS:\n`;
+            (pkg.thumbnail_concepts || []).forEach((tc, i) => {
+                out += `Concept ${i + 1}: ${tc.concept_title}\n- Text: ${tc.text_overlay}\n- AI Prompt: ${tc.ai_image_prompt}\n\n`;
+            });
+
+            return out;
+        }
+
+        function downloadFile(content, filename, type) {
+            const blob = new Blob([content], { type });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`Downloaded ${filename}!`);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>
+
